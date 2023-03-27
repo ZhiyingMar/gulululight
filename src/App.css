@@ -1,0 +1,9 @@
+.left-container{
+  margin-left: inherit;
+}
+.p-click{
+  cursor: pointer;
+}
+.p-click:hover{
+  opacity: 0.8;
+}
