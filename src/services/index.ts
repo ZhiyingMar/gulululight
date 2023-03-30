@@ -1,10 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 import { AxiosError } from "axios";
+const config = require('@/utils/config')
 
-// const baseUrl = "/api";
 const baseUrl =
-  process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "/api";
+  process.env.NODE_ENV === "development" ? config.URL : config.TEST_URL;
+
+console.log(baseUrl);
 
 class HttpMethods {
   // 返回值处理

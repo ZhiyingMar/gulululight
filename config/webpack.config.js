@@ -294,6 +294,10 @@ module.exports = function (webpackEnv) {
     },
     resolve: {
       // This allows you to set a fallback for where webpack should look for modules.
+      fallback:{
+        "os": false,
+        "path": false
+      },
       // We placed these paths second because we want `node_modules` to "win"
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
@@ -563,6 +567,9 @@ module.exports = function (webpackEnv) {
           ],
         },
       ].filter(Boolean),
+    },
+    externals: {
+      fs: require('fs')
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
