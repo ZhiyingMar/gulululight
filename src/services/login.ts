@@ -1,15 +1,14 @@
 import HttpMethods from ".";
 
-const baseUrl='/login'
+const baseUrl='/users'
 export const login=async()=>{
-    await new HttpMethods().post(baseUrl,{
+    await new HttpMethods().get(baseUrl,{
         // "username":"test1",
         "password":"test1"
     }).then((res: any)=>{
         console.log(res);
         
     }).catch((error: any)=>{
-        console.log(error.error);
-        
+        console.log(error);   
     })
 }

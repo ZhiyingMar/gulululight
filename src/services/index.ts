@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 const config = require('@/utils/config')
 
 const baseUrl =
-  process.env.NODE_ENV === "development" ? config.URL : config.TEST_URL;
+  process.env.NODE_ENV === "development" ?  config.TEST_URL:config.URL ;
 
 console.log(baseUrl);
 
