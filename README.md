@@ -19,7 +19,7 @@
 ## 文件结构
 
 .  
-├── README.md  
+|-- README.md  
 ├── package-lock.json  
 ├── package.json  
 ├── public  
