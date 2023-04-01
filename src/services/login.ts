@@ -1,14 +1,8 @@
 import HttpMethods from ".";
+import {LoginServer} from "./interface"
 
 const baseUrl='/login'
-export const login=async()=>{
-    await new HttpMethods().post(baseUrl,{
-        "username":"test1",
-        "password":"test1"
-    }).then((res: any)=>{
-        console.log(res);
-        
-    }).catch((error: any)=>{
-        console.log(error);   
-    })
+export const loginServer=async(params:LoginServer)=>{
+    const result=await new HttpMethods().post(baseUrl,params)
+    return result;
 }

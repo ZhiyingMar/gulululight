@@ -1,12 +1,30 @@
+
 body {
-  background-color: rgb(9, 19, 38);
+  /* background-color: rgb(9, 19, 38); */
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+  font-family: Nunito, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  margin: 0;
 }
+
+
+:root{
+  /* 首页主色 */
+  --bg-primary:	#010156;
+  /* 背景为主色字体颜色 */
+  --color-bg-primary:#fff;
+  /* 背景为浅色字体颜色 */
+  --color-bg-light:#212529;
+  --button-color-primary:#09ebaf;
+  --font-family-sans-serif: Nunito, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

@@ -7,10 +7,11 @@ const NewMessage = () => {
         
     }
   return (
-    <form className="w-100" onSubmit={addNewMessage}>
-      <textarea className="w-100" placeholder="在此留言～" name="message"/>
-      <div className="mt-3 d-flex flex-row-reverse">
-        <Button variant="outline-success" type="submit">发送</Button>
+    <form className="w-100 pb-5" onSubmit={addNewMessage}>
+      <h2 className="pb-4 text-center">📮留言在此哦～</h2>
+      <textarea className="w-100 input-round p-3"  placeholder="在此留言～" name="message"/>
+      <div className="mt-3 d-flex flex-row-reverse d-grid gap-2">
+        <Button className="btn-info btn-round shadow" type="submit">发 送</Button>
       </div>
     </form>
   );

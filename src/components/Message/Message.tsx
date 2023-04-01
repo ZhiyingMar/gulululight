@@ -17,7 +17,19 @@ const Messages = () => {
         as="li"
         className="d-flex justify-content-between align-items-start"
       >
-        <NewMessage></NewMessage>
+        <Message></Message>
+      </ListGroup.Item>
+      <ListGroup.Item
+        as="li"
+        className="d-flex justify-content-between align-items-start"
+      >
+        <Message></Message>
+      </ListGroup.Item>
+      <ListGroup.Item
+        as="li"
+        className="d-flex justify-content-between align-items-start"
+      >
+        <Message></Message>
       </ListGroup.Item>
       <ListGroup.Item
         as="li"

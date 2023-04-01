@@ -1,24 +1,41 @@
 import Footer from "@/components/Footer";
-import { Nav, Navbar, Container,Button } from "react-bootstrap";
+import { Nav, Navbar, Container,Button,NavDropdown,Row,Col } from "react-bootstrap";
 import Login from "@/components/Login";
 import Home from "@/components/Home";
 import Mine from "@/components/Mine";
+import NewMessage from "@/components/Message/NewMessage";
+import HoverButton from "@/components/tool/HoverButton";
 import { Routes, Route, Link } from "react-router-dom";
 import logo from "@/logo.svg";
 import slogan from "@/slogan.svg";
 import "./App.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+
 
 function App() {
+  
   const [login,setLogin]=useState(false);
+  const [username,setUsername]=useState(JSON.parse(window.localStorage?.getItem('loggerData')??'')?.username??'');
+  // const [alert,setAlert]=useState(false);
+  // const [message,setMessage]=useState('')
   const loginShow=(isShow:boolean)=>{
     setLogin(isShow);
+  };
+  
+  // 登录完成赋值
+  const changeName=(value:string)=>{
+    setUsername(value)
   }
+  // const errorHandle=(message:string)=>{
+  //   setAlert(true);
+  //   setMessage(message);
+  // }
+
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar  className="topnav navbar-expand-lg fixed-top bg-primary">
         {/* 此处不能使用bsPrefix，会覆盖掉原本的样式 */}
-        <Container className="left-container">
+        <Container fluid >
           <Navbar.Brand href="#" as="span">
             <Link to="/">
               <img
@@ -37,11 +54,26 @@ function App() {
               />
             </Link>
           </Navbar.Brand>
-          <Nav>
-            <Button variant="outline-light" onClick={()=>loginShow(true)}>登录</Button>
+          <Navbar.Collapse>
+            <Nav>
             <Nav.Link href="#" as="span">
-              <Link to="/mine">了解项目</Link>
+              <Link className="nav-color-bg text-decoration-none"  to="/">首页</Link>
             </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link className="nav-color-bg text-decoration-none" to="/mine">关于项目</Link>
+            </Nav.Link>
+            </Nav>
+            <NavDropdown  bsPrefix="nav-color-bg text-decoration-none" title="其他操作" >
+              <NavDropdown.Item href="#">
+                <Link className="nav-color-bg-light text-decoration-none"  to="/register">创建新账号</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#">跳
+                {/* <Link className="nav-color-bg-light text-decoration-none"  to="/register"></Link> */}
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Navbar.Collapse>
+          <Nav>
+            <Button className="btn-info btn-round shadow" onClick={()=>loginShow(true)}> 登录 </Button>
           </Nav>
         </Container>
       </Navbar>
@@ -49,8 +81,8 @@ function App() {
         <Route path="/mine" element={<Mine />}></Route>
         <Route path="/" element={<Home />}></Route>
       </Routes>
-      <Login show={login} onHide={()=>loginShow(false)}></Login>
-      <Footer></Footer>
+      <Login show={login} onHide={()=>loginShow(false)} change={changeName}></Login>
+      <Footer></Footer> 
     </>
   );
 }

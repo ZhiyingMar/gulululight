@@ -6,8 +6,6 @@ const config = require('@/utils/config')
 const baseUrl =
   process.env.NODE_ENV === "development" ?  config.TEST_URL:config.URL ;
 
-console.log(baseUrl);
-
 class HttpMethods {
   // 返回值处理
   base(method: "get" | "post", url: string, params?: any): any {
@@ -17,11 +15,8 @@ class HttpMethods {
             url: baseUrl + url,
             data: params,
           }).then((response:any) => {
-            console.log("success");
-            
             resolve(response?.data??response)
           }).catch((error:AxiosError)=>{
-            console.log("error");
             reject(error?.response?.data??error?.response)
           });
     })
