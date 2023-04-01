@@ -73,5 +73,3 @@
 │   └── utils  
 │       └── config.ts  
 └── tsconfig.json  
-
-## 项目启动
