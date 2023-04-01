@@ -18,7 +18,7 @@
 
 ## 文件结构
 
-.
+.  
 ├── README.md  
 ├── package-lock.json  
 ├── package.json  
