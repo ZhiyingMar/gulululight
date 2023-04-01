@@ -18,6 +18,7 @@
 
 ## 文件结构
 
+`
 .  
 |-- README.md  
 |-- package-lock.json  
@@ -72,4 +73,4 @@
 │   |-- slogan.svg  
 │   └-- utils  
 │       └-- config.ts  
-└-- tsconfig.json  
+└-- tsconfig.json  `
