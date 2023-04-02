@@ -24,7 +24,7 @@
 |-- package-lock.json  
 |-- package.json  
 |-- public  
-│   |-- gulululight.ico  
+│.  |-- gulululight.ico  
 │   |-- gulululight.png  
 │   |-- index.html  
 │   |-- logo.svg  
