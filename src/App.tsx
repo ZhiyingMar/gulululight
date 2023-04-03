@@ -12,7 +12,8 @@ import { useState } from "react";
 function App() {
   
   const [login,setLogin]=useState(false);
-  const [username,setUsername]=useState(JSON.parse(window.localStorage?.getItem('loggerData')??'')?.username??'');
+  const [username,setUsername]=useState(JSON.parse(window?.localStorage?.getItem('loggerData')??'{}')?.username??'');
+  
   // const [alert,setAlert]=useState(false);
   // const [message,setMessage]=useState('')
   const loginShow=(isShow:boolean)=>{
