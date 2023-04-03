@@ -6,7 +6,7 @@ import NavBar from "@/components/NavBar";
 import Register from "./components/register";
 import { Routes, Route} from "react-router-dom";
 import "./App.css";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 
 
 function App() {

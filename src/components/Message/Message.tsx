@@ -1,5 +1,5 @@
 import { ListGroup } from "react-bootstrap";
-import NewMessage from "./NewMessage"
+// import NewMessage from "./NewMessage"
 const Message = () => {
   return (
     <div className="ms-2 me-auto">
@@ -67,7 +67,7 @@ const Messages = () => {
       >
         <Message></Message>
       </ListGroup.Item>
-      
+
     </ListGroup>
   );
 };
