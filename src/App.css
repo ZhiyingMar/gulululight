@@ -2,6 +2,10 @@
   background-color: var(--bg-primary) !important;
   padding: 0.5rem 1rem;
 }
+.bg-white {
+  background-color: var(--bg-white) !important;
+  padding: 0.5rem 1rem;
+}
 .nav-color-bg {
   color: var(--color-bg-primary) !important;
 }
@@ -66,4 +70,11 @@
 .display-demo{
   width:100px;
   height: 900px;
+}
+
+.ma{
+  margin: auto !important
+}
+.h-md-100{
+  height: 100vh;
 }

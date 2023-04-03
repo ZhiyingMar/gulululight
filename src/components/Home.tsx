@@ -1,4 +1,5 @@
-import { Container, Row, Col, ListGroup } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+import Footer from "@/components/Footer";
 import Message from "./Message/Message";
 import "./Home.css";
 import NewMessage from "@/components/Message/NewMessage";
@@ -11,7 +12,7 @@ const Home = () => {
   };
   useEffect(() => {
     AOS.init({
-      duration:600
+      duration: 600,
     });
   }, []);
   return (
@@ -30,7 +31,11 @@ const Home = () => {
           </Row>
         </Container>
       </div>
-      <Container className="mb-5" data-aos="fade-up">
+      {/* 底部新增留言 */}
+      <Container data-aos="fade-down">
+        <NewMessage />
+      </Container>
+      <Container className="mb-5" data-aos="fade-down">
         <h2 className="pb-2">留言板</h2>
         <Row>
           <Col>
@@ -38,11 +43,7 @@ const Home = () => {
           </Col>
         </Row>
       </Container>
-
-      {/* 底部新增留言 */}
-      <Container data-aos="fade-down">
-        <NewMessage />
-      </Container>
+      <Footer></Footer>
     </Container>
   );
 };
