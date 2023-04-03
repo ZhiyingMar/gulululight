@@ -1,4 +1,4 @@
-import { Container,Form, Button } from "react-bootstrap";
+import {Form, Button } from "react-bootstrap";
 const Register = () => {
   return (
     <div className=" bg-primary d-md-flex h-md-100 align-items-center jumbotron jumbotron-lg jumbotron-fluid ">

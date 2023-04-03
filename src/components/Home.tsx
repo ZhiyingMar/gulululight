@@ -3,13 +3,13 @@ import Footer from "@/components/Footer";
 import Message from "./Message/Message";
 import "./Home.css";
 import NewMessage from "@/components/Message/NewMessage";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import AOS from "aos";
 const Home = () => {
-  const [active, setActive] = useState(0);
-  const change = (type: number) => {
-    setActive(type);
-  };
+  // const [active, setActive] = useState(0);
+  // const change = (type: number) => {
+  //   setActive(type);
+  // };
   useEffect(() => {
     AOS.init({
       duration: 600,
