@@ -11,7 +11,7 @@ jobs:
     steps:
       # uses关键词告诉工作流要运行一个特定的动作。行动是一段可重复使用的代码，就像一个函数。行动可以在你的版本库中定义为一个单独的文件，也可以使用公共版本库中的行动
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
         # 设置node环境的版本
           node-version: '16'
