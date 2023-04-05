@@ -3,7 +3,7 @@ name: Build gulululight
 on:
   push:
     branches:
-      - dev
+      - master
 
 jobs:
   simple_build_gulululight:
