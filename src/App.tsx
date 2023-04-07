@@ -8,11 +8,14 @@ import { Routes, Route} from "react-router-dom";
 import "./App.css";
 import { useState } from "react";
 
+// const EventEmitter = require("events");
+// const event = new EventEmitter();
+
 
 function App() {
   
   const [login,setLogin]=useState(false);
-  const [username,setUsername]=useState(JSON.parse(window?.localStorage?.getItem('loggerData')??'{}')?.username??'');
+  // const [username,setUsername]=useState(JSON.parse(window?.localStorage?.getItem('loginData')??'{}')?.username??'');
   
   // const [alert,setAlert]=useState(false);
   // const [message,setMessage]=useState('')
@@ -21,9 +24,9 @@ function App() {
   };
   
   // 登录完成赋值
-  const changeName=(value:string)=>{
-    setUsername(value)
-  }
+  // const changeName=(value:string)=>{
+  //   setUsername(value)
+  // }
   // const errorHandle=(message:string)=>{
   //   setAlert(true);
   //   setMessage(message);
@@ -31,13 +34,13 @@ function App() {
 
   return (
     <>
-      <NavBar loginShow={()=>loginShow(true)} username={username}></NavBar>
+      <NavBar loginShow={()=>loginShow(true)}></NavBar>
       <Routes>
         <Route path="/mine" element={<Mine />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" element={<Home />}></Route>
       </Routes>
-      <Login show={login} onHide={()=>loginShow(false)} change={changeName}></Login>
+      <Login show={login} onHide={()=>loginShow(false)}></Login>
       
     </>
   );

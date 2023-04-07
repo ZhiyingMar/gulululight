@@ -3,6 +3,9 @@ import { Form, Button, Modal } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 import { loginServer } from "@/services/login";
 import "./Login.css";
+
+import eventBus from "@/utils/eventBus";
+
 const Login = (props: any) => {
   const [validated, setValidated] = useState(false);
   const [userName] = useState("test");
@@ -26,8 +29,8 @@ const Login = (props: any) => {
       password: form.formPassword.value,
     })
       .then((res) => {
-        window.localStorage.setItem("loggerData", JSON.stringify(res));
-        props.change(res?.username??'');
+        window.localStorage.setItem("loginData", JSON.stringify(res));
+        eventBus.emit('login',res?.username)
         setValidated(true);
         setError('');
         props.onHide();

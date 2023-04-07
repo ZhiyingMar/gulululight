@@ -2,17 +2,30 @@ import { Nav, Navbar, Container,Button,NavDropdown } from "react-bootstrap";
 import logo from "@/assets/logo.svg";
 import slogan from "@//assets/slogan.svg";
 import { Link } from "react-router-dom";
+import { useEffect,useState } from "react";
+
+import eventBus from "@/utils/eventBus";
+
 const NavBar = ({
-    loginShow,
-    username
+    loginShow
 }:any) => {
+  const [username,setUsername]=useState('');
   const loginClick=()=>{
     if(username){
-      window.localStorage.clear()
+      window.localStorage.clear();
+      setUsername('')
       return;
     }
     loginShow();
   }
+
+  // 接收登录信息，更改展示内容
+  useEffect(()=>{
+    eventBus.on('login',(value:string)=>{
+      setUsername(value)
+    })
+  },[])
+
   return (
     <>
       <Navbar className="topnav navbar-expand-lg fixed-top bg-primary ">
@@ -72,7 +85,7 @@ const NavBar = ({
               className="btn-info btn-round shadow"
               onClick={loginClick}
             >
-              {username?'退出登录':'登录'}
+              {username?username:'登录'}
             </Button>
           </Nav>
         </Container>

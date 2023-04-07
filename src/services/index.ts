@@ -13,6 +13,7 @@ class HttpMethods {
     url: string,
     params?: any
   ): any {
+    // console.log(JSON.parse(window?.localStorage?.getItem('loggerData')??'{}').token);
     return new Promise((resolve, reject) => {
       axios({
         method,
@@ -20,7 +21,7 @@ class HttpMethods {
         params:method==='get'?params:{},
         data: params,
         headers:{
-          authorization:'bearer '+JSON.parse(window?.localStorage?.getItem('loggerData')??'{}')?.token??''
+          Authorization:'bearer '+JSON.parse(window?.localStorage?.getItem('loginData')??'{}')?.token??''
         }
       })
         .then((response: any) => {
