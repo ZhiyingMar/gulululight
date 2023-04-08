@@ -23,7 +23,6 @@ const Register = () => {
       event.stopPropagation();
     }
 
-
     if (loading) return;
     setLoading(true);
 
@@ -32,7 +31,7 @@ const Register = () => {
       password: form.registerPassword.value,
     })
       .then((res) => {
-        window.localStorage.setItem("loggerData", JSON.stringify(res));
+        window.localStorage.setItem("loginData", JSON.stringify(res));
         setValidated(true);
         setVariant("success");
         setError("创建账号成功，留个言吧～");

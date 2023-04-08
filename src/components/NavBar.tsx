@@ -1,30 +1,38 @@
-import { Nav, Navbar, Container,Button,NavDropdown } from "react-bootstrap";
+import { Nav, Navbar, Container, Button, NavDropdown } from "react-bootstrap";
 import logo from "@/assets/logo.svg";
 import slogan from "@//assets/slogan.svg";
 import { Link } from "react-router-dom";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 import eventBus from "@/utils/eventBus";
+import ModalBasic from "@/components/tool/Modal";
 
-const NavBar = ({
-    loginShow
-}:any) => {
-  const [username,setUsername]=useState('');
-  const loginClick=()=>{
-    if(username){
-      window.localStorage.clear();
-      setUsername('')
+const NavBar = ({ loginShow }: any) => {
+  const [username, setUsername] = useState("");
+  const [show, setShow] = useState(false);
+  const loginClick = () => {
+    if (username) {
+      setShow(true);
       return;
     }
     loginShow();
-  }
+  };
+
+  // 关闭弹窗处理
+  const handleClose = () => setShow(false);
+
+  // 退出登录处理
+  const handleConfirm = () => {
+    window.localStorage.clear();
+    setUsername("");
+  };
 
   // 接收登录信息，更改展示内容
-  useEffect(()=>{
-    eventBus.on('login',(value:string)=>{
-      setUsername(value)
-    })
-  },[])
+  useEffect(() => {
+    eventBus.on("login", (value: string) => {
+      setUsername(value);
+    });
+  }, []);
 
   return (
     <>
@@ -57,7 +65,10 @@ const NavBar = ({
                 </Link>
               </Nav.Link>
               <Nav.Link href="#" as="span">
-                <Link className="nav-color-bg text-decoration-none" to="/register">
+                <Link
+                  className="nav-color-bg text-decoration-none"
+                  to="/register"
+                >
                   创建账号
                 </Link>
               </Nav.Link>
@@ -81,15 +92,20 @@ const NavBar = ({
             </NavDropdown>
           </Navbar.Collapse>
           <Nav>
-            <Button
-              className="btn-info btn-round shadow"
-              onClick={loginClick}
-            >
-              {username?username:'登录'}
+            <Button className="btn-info btn-round shadow" onClick={loginClick}>
+              {username ? username : "登录"}
             </Button>
           </Nav>
         </Container>
       </Navbar>
+      <ModalBasic
+        show={show}
+        title='退出登录'
+        content='是否确认退出登录'
+        handleClose={handleClose}
+        closeText="退出登录"
+        handleConfirm={handleConfirm}
+      ></ModalBasic>
     </>
   );
 };

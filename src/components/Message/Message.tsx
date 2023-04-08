@@ -1,23 +1,29 @@
-import { ListGroup, OverlayTrigger, Popover } from "react-bootstrap";
-import { getList, deleteMessage, updateMessage } from "@/services/message";
+import { ListGroup, OverlayTrigger, Popover, Container } from "react-bootstrap";
+import { getList, deleteMessage } from "@/services/message";
 import AlertBasic from "../tool/Alert";
-import { useState,useEffect } from "react";
-const Message = ({ id, content,date,username }: any) => {
+import ModalBasic from "../tool/Modal";
+import NewMessage from "./NewMessage";
+import { useState, useEffect } from "react";
+const Message = ({ id, content, date, username }: any) => {
   const [error, setError] = useState("");
-  const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
+  // const [deleteShow,setDeleteShow]=useState(false);
+  // 1.删除 2.编辑
+  const [operate, setOperate] = useState(0);
+
+  const hanldeShow = (op: number) => setOperate(op);
+  const hanldeDeleteHide = () => setOperate(0);
 
   // 删除
   const deleteClick = () => {
-    if(loading) return;
+    if (loading) return;
     setLoading(true);
     deleteMessage(id)
       .then((res) => {
-        console.log("success");
         setLoading(false);
+        hanldeDeleteHide();
       })
       .catch((err) => {
-        console.log("llll");
-        
         setLoading(false);
         setError(err?.error);
         setTimeout(() => {
@@ -26,38 +32,25 @@ const Message = ({ id, content,date,username }: any) => {
       });
   };
 
-  // 更新
-  const updateClick = () => {
-    if(loading) return;
-    setLoading(true);
-    updateMessage(id, { content })
-      .then((res) => {
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setError(err.error);
-        setTimeout(() => {
-          setError("");
-        }, 2000);
-      });
-  };
+
   return (
     <>
       <div className="ms-2 me-auto w-100">
         <div className="d-flex justify-content-between w-100 fw-bold fs-4">
-          <p>{username??'--'}</p>
+          <p>{username ?? "--"}</p>
 
           <OverlayTrigger
             placement="bottom"
             trigger="click"
+            rootCloseEvent="click"
+            rootClose={true}
             overlay={
               <Popover>
                 <Popover.Body>
-                  <p className="tool-cancel" onClick={deleteClick}>
+                  <p className="tool-cancel" onClick={() => hanldeShow(1)}>
                     <i className="iconfont-size iconfont ">&#xe650;</i> 删除
                   </p>
-                  <p className="tool-edit mb-0" onClick={updateClick}>
+                  <p className="tool-edit mb-0" onClick={() => hanldeShow(2)}>
                     <i className="iconfont-size iconfont ">&#xeabd;</i> 编辑
                   </p>
                 </Popover.Body>
@@ -67,60 +60,72 @@ const Message = ({ id, content,date,username }: any) => {
             <i className="iconfont">&#xe65d;</i>
           </OverlayTrigger>
         </div>
-        <p className="fw-light fs-6">{date}</p>
+        <p className="fw-light fs-6">{date?.split('.')?.[0]?.replace('T',' ')??'--'}</p>
         <div className="fst-italic fs-5">{content}</div>
       </div>
       <AlertBasic show={!!error} content={error}></AlertBasic>
+      <ModalBasic
+        show={!!operate}
+        title={operate === 1 ? "删除留言" : "编辑留言"}
+        content={operate === 1 ? "是否确认删除留言" : ""}
+        handleClose={hanldeDeleteHide}
+        closeText="确认"
+        handleConfirm={deleteClick}
+      >
+        {operate === 2 && (
+          <Container className="mt-4">
+            <NewMessage isEdit={true} handleClose={hanldeDeleteHide} defaultContent={content} id={id}></NewMessage>
+          </Container>
+        )}
+      </ModalBasic>
     </>
   );
 };
 
 const Messages = () => {
-  
-  
   const [error, setError] = useState("");
   const [list, setList] = useState([]);
-  const [loading,setLoading]=useState(false);
-  const getMessage=()=>{
-    if(loading) return;
+  const [loading, setLoading] = useState(false);
+  const getMessage = () => {
+    if (loading) return;
     setLoading(true);
     getList({
-      pageIndex:0,
-      pageSize:10
-    }).then((res:any)=>{
-      setLoading(false);
-      setList(res)
-    }).catch((err) => {
-      setLoading(false);
-      setError(err?.error??'获取数据失败');
-      setTimeout(() => {
-        setError("");
-      }, 2000);
-    });
-  }
-  useEffect(()=>{
-    getMessage()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+      pageIndex: 0,
+      pageSize: 10,
+    })
+      .then((res: any) => {
+        setLoading(false);
+        setList(res);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err?.error ?? "获取数据失败");
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      });
+  };
+  useEffect(() => {
+    getMessage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
-
-<ListGroup as="ul">
-      {list.map((value: any) => {
-        return (
-          <ListGroup.Item
-            key={value?.id}
-            as="li"
-            className="d-flex justify-content-between align-items-start"
-          >
-            <Message {...value}></Message>
-          </ListGroup.Item>
-        );
-      })}
-    </ListGroup>
-    <AlertBasic show={!!error} content={error}></AlertBasic>
+      <ListGroup as="ul">
+        {list.map((value: any) => {
+          return (
+            <ListGroup.Item
+              key={value?.id}
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <Message {...value}></Message>
+            </ListGroup.Item>
+          );
+        })}
+      </ListGroup>
+      <AlertBasic show={!!error} content={error}></AlertBasic>
     </>
-
   );
 };
 

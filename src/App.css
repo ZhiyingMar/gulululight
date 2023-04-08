@@ -82,6 +82,8 @@
 .alert-position{
   top: 15% !important;
   left:45% !important;
+  /* 设置层级高于modal弹窗 */
+  z-index:9999 !important;
 }
 
 @font-face {
