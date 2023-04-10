@@ -2,14 +2,34 @@ import { Button } from "react-bootstrap";
 import { addMessage, updateMessage } from "@/services/message";
 import { useEffect, useState } from "react";
 import AlertBasic from "@/components/tool/Alert";
+
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { assignmentName, selectContent } from "@/store/contenterSlice";
+
 const NewMessage = ({ isEdit, handleClose, id, defaultContent }: any) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [val, setVal] = useState("");
 
+  const content = useAppSelector(selectContent);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     setVal(defaultContent);
   }, [defaultContent]);
+
+  useEffect(() => {
+    !val && !defaultContent && setVal(content);
+    // 这里数组只触发一次，不能添加任何值
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(assignmentName(val));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [val]);
 
   // 点击发送
   const addNewMessage = (event: any) => {
@@ -41,6 +61,7 @@ const NewMessage = ({ isEdit, handleClose, id, defaultContent }: any) => {
       .then((res) => {
         setVal("");
         setLoading(false);
+        dispatch(assignmentName(""));
         console.log(res);
       })
       .catch((err) => {

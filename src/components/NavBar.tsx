@@ -10,11 +10,13 @@ import ModalBasic from "@/components/tool/Modal";
 const NavBar = ({ loginShow }: any) => {
   const [username, setUsername] = useState("");
   const [show, setShow] = useState(false);
+
   const loginClick = () => {
     if (username) {
       setShow(true);
       return;
     }
+    // 弹窗展示
     loginShow();
   };
 
@@ -32,6 +34,11 @@ const NavBar = ({ loginShow }: any) => {
     eventBus.on("login", (value: string) => {
       setUsername(value);
     });
+  }, []);
+
+  // 刷新后用户名展示
+  useEffect(() => {
+    setUsername(JSON.parse(window?.localStorage?.getItem('loginData')??'{}')?.username??'');
   }, []);
 
   return (
