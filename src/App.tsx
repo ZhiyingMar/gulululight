@@ -15,22 +15,11 @@ import { useState } from "react";
 function App() {
   
   const [login,setLogin]=useState(false);
-  // const [username,setUsername]=useState(JSON.parse(window?.localStorage?.getItem('loginData')??'{}')?.username??'');
-  
-  // const [alert,setAlert]=useState(false);
-  // const [message,setMessage]=useState('')
+
   const loginShow=(isShow:boolean)=>{
     setLogin(isShow);
   };
   
-  // 登录完成赋值
-  // const changeName=(value:string)=>{
-  //   setUsername(value)
-  // }
-  // const errorHandle=(message:string)=>{
-  //   setAlert(true);
-  //   setMessage(message);
-  // }
 
   return (
     <>

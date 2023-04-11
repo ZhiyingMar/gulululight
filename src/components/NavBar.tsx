@@ -27,6 +27,7 @@ const NavBar = ({ loginShow }: any) => {
   const handleConfirm = () => {
     window.localStorage.clear();
     setUsername("");
+    handleClose();
   };
 
   // 接收登录信息，更改展示内容
@@ -43,7 +44,7 @@ const NavBar = ({ loginShow }: any) => {
 
   return (
     <>
-      <Navbar className="topnav navbar-expand-lg fixed-top bg-primary ">
+      <Navbar id="nav-bar" className="topnav navbar-expand-lg fixed-top bg-primary ">
         {/* 此处不能使用bsPrefix，会覆盖掉原本的样式 */}
         <Container fluid>
           <Navbar.Brand href="#" as="span">

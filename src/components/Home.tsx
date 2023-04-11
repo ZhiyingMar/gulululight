@@ -35,7 +35,8 @@ const Home = () => {
       <Container data-aos="fade-down">
         <NewMessage />
       </Container>
-      <Container className="mb-5" data-aos="fade-down">
+      {/* className="mb-5" */}
+      <Container className="mb-5"  data-aos="fade-down">
         <h2 className="pb-2">留言板</h2>
         <Row>
           <Col>

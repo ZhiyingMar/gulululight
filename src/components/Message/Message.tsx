@@ -1,101 +1,38 @@
-import { ListGroup, OverlayTrigger, Popover, Container } from "react-bootstrap";
-import { getList, deleteMessage } from "@/services/message";
+import { ListGroup, Spinner } from "react-bootstrap";
+import { getList } from "@/services/message";
 import AlertBasic from "../tool/Alert";
-import ModalBasic from "../tool/Modal";
-import NewMessage from "./NewMessage";
+import MessageItem from "./MessageItem";
 import { useState, useEffect } from "react";
-const Message = ({ id, content, date, username }: any) => {
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  // const [deleteShow,setDeleteShow]=useState(false);
-  // 1.删除 2.编辑
-  const [operate, setOperate] = useState(0);
+import empty from "@/assets/empty.png";
 
-  const hanldeShow = (op: number) => setOperate(op);
-  const hanldeDeleteHide = () => setOperate(0);
-
-  // 删除
-  const deleteClick = () => {
-    if (loading) return;
-    setLoading(true);
-    deleteMessage(id)
-      .then((res) => {
-        setLoading(false);
-        hanldeDeleteHide();
-      })
-      .catch((err) => {
-        setLoading(false);
-        setError(err?.error);
-        setTimeout(() => {
-          setError("");
-        }, 2000);
-      });
-  };
-
-
-  return (
-    <>
-      <div className="ms-2 me-auto w-100">
-        <div className="d-flex justify-content-between w-100 fw-bold fs-4">
-          <p>{username ?? "--"}</p>
-
-          <OverlayTrigger
-            placement="bottom"
-            trigger="click"
-            rootCloseEvent="click"
-            rootClose={true}
-            overlay={
-              <Popover>
-                <Popover.Body>
-                  <p className="tool-cancel" onClick={() => hanldeShow(1)}>
-                    <i className="iconfont-size iconfont ">&#xe650;</i> 删除
-                  </p>
-                  <p className="tool-edit mb-0" onClick={() => hanldeShow(2)}>
-                    <i className="iconfont-size iconfont ">&#xeabd;</i> 编辑
-                  </p>
-                </Popover.Body>
-              </Popover>
-            }
-          >
-            <i className="iconfont">&#xe65d;</i>
-          </OverlayTrigger>
-        </div>
-        <p className="fw-light fs-6">{date?.split('.')?.[0]?.replace('T',' ')??'--'}</p>
-        <div className="fst-italic fs-5">{content}</div>
-      </div>
-      <AlertBasic show={!!error} content={error}></AlertBasic>
-      <ModalBasic
-        show={!!operate}
-        title={operate === 1 ? "删除留言" : "编辑留言"}
-        content={operate === 1 ? "是否确认删除留言" : ""}
-        handleClose={hanldeDeleteHide}
-        closeText="确认"
-        handleConfirm={deleteClick}
-      >
-        {operate === 2 && (
-          <Container className="mt-4">
-            <NewMessage isEdit={true} handleClose={hanldeDeleteHide} defaultContent={content} id={id}></NewMessage>
-          </Container>
-        )}
-      </ModalBasic>
-    </>
-  );
-};
+import useContainerScroll from "@/utils/useContainerScroll";
+import eventBus from "@/utils/eventBus";
 
 const Messages = () => {
   const [error, setError] = useState("");
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const getMessage = () => {
+  const [pageIndex, setPageIndex] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const { reachBottom, scrollToAnchor } = useContainerScroll("#todo-list");
+  const pageSize = 10;
+
+  // 获取数据列表
+  const getMessage = (page?: number, isRefresh?: boolean) => {
     if (loading) return;
     setLoading(true);
     getList({
-      pageIndex: 0,
-      pageSize: 10,
+      pageIndex: page ?? pageIndex,
+      pageSize,
     })
       .then((res: any) => {
         setLoading(false);
-        setList(res);
+        console.log(res?.length);
+
+        setHasMore(res?.length >= pageSize);
+        console.log(hasMore);
+        setList(list.concat(res));
+        isRefresh && scrollToAnchor("new-message");
       })
       .catch((err) => {
         setLoading(false);
@@ -105,13 +42,41 @@ const Messages = () => {
         }, 2000);
       });
   };
+
+  // 加载更多
+  const uploadMore = () => {
+    console.log("uploadMore", hasMore);
+    // 解决pageIndex更新不及时的问题
+    setPageIndex((pageIndex) => {
+      getMessage(pageIndex + 1);
+      return pageIndex + 1;
+    });
+  };
+
   useEffect(() => {
     getMessage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    eventBus.on("refresh", () => {
+      setPageIndex(0);
+      getMessage(0, true);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (reachBottom && !loading && hasMore) {
+      uploadMore();
+      console.log("reachBottom", reachBottom);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reachBottom, loading]);
+
   return (
-    <>
-      <ListGroup as="ul">
+    <div id="messages">
+      <ListGroup as="ul" id="todo-list">
         {list.map((value: any) => {
           return (
             <ListGroup.Item
@@ -119,13 +84,40 @@ const Messages = () => {
               as="li"
               className="d-flex justify-content-between align-items-start"
             >
-              <Message {...value}></Message>
+              <MessageItem {...value}></MessageItem>
             </ListGroup.Item>
           );
         })}
       </ListGroup>
+      {loading && (
+        <div className="mt-4 d-flex align-items-center justify-content-center">
+          <Spinner
+            animation="border"
+            role="status"
+            variant="secondary"
+          ></Spinner>
+          <span className="ms-2 fw-light">加载中。。。</span>
+        </div>
+      )}
+      {!!list?.length && !loading && !hasMore && (
+        <p className="mt-4 text-center fw-light">已经到底了。。。</p>
+      )}
+      {!list?.length && !loading && !hasMore && !pageIndex && (
+        <div className="mt-4 d-flex flex-column align-items-center justify-content-center">
+          <img
+            src={empty}
+            width="100"
+            data-toggle="tooltip"
+            data-placement="top"
+            data-original-title="写留言"
+            alt=""
+          />
+          <p className="mt-4 fs-6 ms-1 text-center fw-bolder nav-color-bg-light">空空的捏～～～</p>
+        </div>
+      )}
+
       <AlertBasic show={!!error} content={error}></AlertBasic>
-    </>
+    </div>
   );
 };
 

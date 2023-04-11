@@ -13,7 +13,6 @@ class HttpMethods {
     url: string,
     params?: any
   ): any {
-    // console.log(JSON.parse(window?.localStorage?.getItem('loggerData')??'{}').token);
     return new Promise((resolve, reject) => {
       axios({
         method,
@@ -27,7 +26,16 @@ class HttpMethods {
         .then((response: any) => {
           resolve(response?.data ?? response);
         })
-        .catch((error: AxiosError) => {          
+        .catch((error: AxiosError) => {
+          console.log(error);
+          
+          if(error?.response?.status===403){
+            setTimeout(()=>{
+              window.localStorage.clear();
+            window.location.reload() 
+            },2000)
+            
+          }          
           reject(error?.response?.data ?? error?.response??'数据获取失败');
         });
     });

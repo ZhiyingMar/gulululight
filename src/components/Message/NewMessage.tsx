@@ -5,15 +5,18 @@ import AlertBasic from "@/components/tool/Alert";
 
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { assignmentName, selectContent } from "@/store/contenterSlice";
+import eventBus from "@/utils/eventBus";
+// import Login from "../Login";
 
 const NewMessage = ({ isEdit, handleClose, id, defaultContent }: any) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [val, setVal] = useState("");
 
+  // const [login,setLogin]=useState(false);
+
   const content = useAppSelector(selectContent);
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     setVal(defaultContent);
   }, [defaultContent]);
@@ -22,7 +25,7 @@ const NewMessage = ({ isEdit, handleClose, id, defaultContent }: any) => {
     !val && !defaultContent && setVal(content);
     // 这里数组只触发一次，不能添加任何值
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [defaultContent]);
 
   useEffect(() => {
     return () => {
@@ -61,8 +64,8 @@ const NewMessage = ({ isEdit, handleClose, id, defaultContent }: any) => {
       .then((res) => {
         setVal("");
         setLoading(false);
+        eventBus.emit('refresh')
         dispatch(assignmentName(""));
-        console.log(res);
       })
       .catch((err) => {
         setLoading(false);
@@ -93,7 +96,7 @@ const NewMessage = ({ isEdit, handleClose, id, defaultContent }: any) => {
   };
   return (
     <>
-      <form className="w-100 pb-4" onSubmit={addNewMessage}>
+      <form id="new-message" className="w-100 pb-4" onSubmit={addNewMessage}>
         <h2
           style={{ display: `${isEdit ? "none" : "block"}` }}
           className="pb-4 text-center"
@@ -122,6 +125,7 @@ const NewMessage = ({ isEdit, handleClose, id, defaultContent }: any) => {
       ) : (
         ""
       )}
+      {/* <Login show={login} onHide={()=>setLogin(false)}></Login> */}
     </>
   );
 };
