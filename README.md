@@ -21,9 +21,8 @@ React + Redux + TypeScript + ES6 +react-router + axios
 
 ## 项目运行
 
+#### 依赖安装
 `npm install`
-
-##
 
 #### 项目运行
 `npm start`
@@ -146,5 +145,7 @@ redux在store.ts文件里面进行处理，保存store和persistor
 4.使用eventBus简化了组件之间的通信，有效分离事件的发送者和接受者避免了复杂的问题，开销减小，使代码更加优雅。
 
 5.进入页面与滚动添加动画，使页面显示更加生动
+
+6.在调取借口的时候进行防抖处理，减少接口请求次数
 
   
