@@ -7,7 +7,7 @@ interface NameState {
 
 // 使用该类型定义初始 state
 const initialState: NameState = {
-    value: 'init',
+    value: '',
   };
   
 
