@@ -121,3 +121,6 @@
   object-fit: cover;
   object-position:  50% 50%;
 }
+.navbar-collapse {
+  justify-content: space-between;
+}

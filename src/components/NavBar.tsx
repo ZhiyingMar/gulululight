@@ -1,4 +1,4 @@
-import { Nav, Navbar, Container, Button, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import logo from "@/assets/logo.svg";
 import slogan from "@//assets/slogan.svg";
 import { Link } from "react-router-dom";
@@ -44,7 +44,7 @@ const NavBar = ({ loginShow }: any) => {
 
   return (
     <>
-      <Navbar id="nav-bar" className="topnav navbar-expand-lg fixed-top bg-primary ">
+      <Navbar id="nav-bar" className="topnav navbar-expand-lg fixed-top bg-primary " expand={false}>
         {/* 此处不能使用bsPrefix，会覆盖掉原本的样式 */}
         <Container fluid>
           <Navbar.Brand href="#" as="span">
@@ -65,7 +65,8 @@ const NavBar = ({ loginShow }: any) => {
               />
             </Link>
           </Navbar.Brand>
-          <Navbar.Collapse>
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-false`} />
+          <Navbar.Collapse bsPrefix="navbar-collapse">
             <Nav>
               <Nav.Link href="#" as="span">
                 <Link className="nav-color-bg text-decoration-none" to="/">
@@ -81,29 +82,13 @@ const NavBar = ({ loginShow }: any) => {
                 </Link>
               </Nav.Link>
             </Nav>
-            <NavDropdown
-              bsPrefix="nav-color-bg text-decoration-none"
-              title="其他操作"
-            >
-              <NavDropdown.Item href="#">
-                <Link
-                  className="nav-color-bg-light text-decoration-none"
-                  to="/register"
-                >
-                  创建新账号
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#">
-                跳
-                {/* <Link className="nav-color-bg-light text-decoration-none"  to="/register"></Link> */}
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Navbar.Collapse>
-          <Nav>
+            <Nav>
             <Button className="btn-info btn-round shadow" onClick={loginClick}>
               {username ? username : "登录"}
             </Button>
           </Nav>
+          </Navbar.Collapse>
+         
         </Container>
       </Navbar>
       <ModalBasic
