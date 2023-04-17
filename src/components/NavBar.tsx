@@ -1,11 +1,13 @@
 import { Nav, Navbar, Container, Button } from "react-bootstrap";
-import logo from "@/assets/logo.svg";
-import slogan from "@//assets/slogan.svg";
+import logo from "@/assets/image/logo.svg";
+import slogan from "@/assets/image/slogan.svg";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import eventBus from "@/utils/eventBus";
 import ModalBasic from "@/components/tool/Modal";
+import {getUserInfo,loginOut} from "@/utils/common";
+
 
 const NavBar = ({ loginShow }: any) => {
   const [username, setUsername] = useState("");
@@ -25,7 +27,7 @@ const NavBar = ({ loginShow }: any) => {
 
   // 退出登录处理
   const handleConfirm = () => {
-    window.localStorage.clear();
+    loginOut();
     setUsername("");
     handleClose();
   };
@@ -39,7 +41,7 @@ const NavBar = ({ loginShow }: any) => {
 
   // 刷新后用户名展示
   useEffect(() => {
-    setUsername(JSON.parse(window?.localStorage?.getItem('loginData')??'{}')?.username??'');
+    setUsername(getUserInfo().username);
   }, []);
 
   return (

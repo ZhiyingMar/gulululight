@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { registerServer } from "@/services/user";
 import { loginServer } from "@/services/login";
 
-import eventBus from "@/utils/eventBus";
+import {validation} from "@/utils/common";
 
 const Register = () => {
   const [validated, setValidated] = useState(false);
@@ -39,7 +39,6 @@ const Register = () => {
         login(form.registerUsername.value,form.registerPassword.value)
       })
       .catch((err: any) => {
-        console.log(err.error);
         setVariant("danger");
         setError(err.error);
         setLoading(false);
@@ -55,18 +54,15 @@ const Register = () => {
       password,
     })
       .then((res) => {
-        window.localStorage.setItem("loginData", JSON.stringify(res));
+        validation(res);
         setError("");
         setLoading(false);
-
-        eventBus.emit("login",username);
         setTimeout(() => {
           navigate("/");
           setError("");
         }, 2000);
       })
       .catch((err: any) => {
-        console.log(err.error);
         setError(err.error);
         setLoading(false);
       });

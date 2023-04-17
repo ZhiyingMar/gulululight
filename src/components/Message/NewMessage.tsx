@@ -40,7 +40,6 @@ const NewMessage = ({ isEdit, handleClose, id, defaultContent }: any) => {
     setLoading(true);
     // 默认动作会，忽略其他操作，导致页面重新加载
     event.preventDefault();
-    console.log(event.target.message.value);
     if (!event.target.message.value) {
       setLoading(false);
       setError("请输入留言内容");

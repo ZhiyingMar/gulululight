@@ -3,7 +3,7 @@ import { getList } from "@/services/message";
 import AlertBasic from "../tool/Alert";
 import MessageItem from "./MessageItem";
 import { useState, useEffect } from "react";
-import empty from "@/assets/empty.png";
+import empty from "@/assets/image/empty.png";
 
 import useContainerScroll from "@/utils/useContainerScroll";
 import eventBus from "@/utils/eventBus";
@@ -27,10 +27,7 @@ const Messages = () => {
     })
       .then((res: any) => {
         setLoading(false);
-        console.log(res?.length);
-
         setHasMore(res?.length >= pageSize);
-        console.log(hasMore);
         setList(list.concat(res));
         isRefresh && scrollToAnchor("new-message");
       })
@@ -45,7 +42,6 @@ const Messages = () => {
 
   // 加载更多
   const uploadMore = () => {
-    console.log("uploadMore", hasMore);
     // 解决pageIndex更新不及时的问题
     setPageIndex((pageIndex) => {
       getMessage(pageIndex + 1);
@@ -69,7 +65,6 @@ const Messages = () => {
   useEffect(() => {
     if (reachBottom && !loading && hasMore) {
       uploadMore();
-      console.log("reachBottom", reachBottom);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reachBottom, loading]);

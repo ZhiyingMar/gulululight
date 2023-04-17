@@ -1,0 +1,47 @@
+/* 全局按钮样式 */
+.btn-info {
+    color: var(--color-bg-light) !important;
+    background-color: var(--button-color-primary);
+    border-color: var(--button-color-primary);
+  }
+  .btn-info:hover {
+    color: #fff !important;
+    background-color: #08c694;
+    border-color: #07ba8a;
+  }
+  .btn-info:focus {
+    color: #000;
+    background-color: var(--button-color-primary);
+    border-color: var(--button-color-primary);
+    box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
+  }
+  .btn-round {
+    border-radius: 30px !important;
+  }
+  .btn {
+    padding: 0.35rem 1.2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    border-radius: 0.25rem;
+    position: relative;
+}
+/* 主题背景色 */
+.bg-primary {
+  background-color: var(--bg-primary) !important;
+  padding: 0.5rem 1rem;
+}
+/* 白色背景色 */
+.bg-white {
+  background-color: var(--bg-white) !important;
+  padding: 0.5rem 1rem;
+}
+
+/* 浅色背景文字颜色 */
+.nav-color-bg {
+  color: var(--color-bg-primary) !important;
+}
+
+/* 主题背景的文字颜色 */
+.nav-color-bg-light {
+  color: var(--color-bg-light) !important;
+}

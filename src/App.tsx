@@ -1,7 +1,6 @@
 
 import Login from "@/components/Login";
 import Home from "@/components/Home";
-import Mine from "@/components/Mine";
 import NavBar from "@/components/NavBar";
 import Register from "./components/register";
 import { Routes, Route} from "react-router-dom";
@@ -25,7 +24,6 @@ function App() {
     <>
       <NavBar loginShow={()=>loginShow(true)}></NavBar>
       <Routes>
-        <Route path="/mine" element={<Mine />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" element={<Home />}></Route>
       </Routes>

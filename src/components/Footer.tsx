@@ -1,6 +1,6 @@
 import "./Footer.css";
-import github from "@/assets/github.svg";
-import message from "@/assets/message.png";
+import github from "@/assets/image/github.svg";
+import message from "@/assets/image/message.png";
 import useContainerScroll from "@/utils/useContainerScroll";
 const Footer = () => {
   const { scrollToAnchor} = useContainerScroll("");

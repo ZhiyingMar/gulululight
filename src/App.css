@@ -1,43 +1,5 @@
-.bg-primary {
-  background-color: var(--bg-primary) !important;
-  padding: 0.5rem 1rem;
-}
-.bg-white {
-  background-color: var(--bg-white) !important;
-  padding: 0.5rem 1rem;
-}
-.nav-color-bg {
-  color: var(--color-bg-primary) !important;
-}
-.nav-color-bg-light {
-  color: var(--color-bg-light) !important;
-}
-.btn-info {
-  color: var(--color-bg-light) !important;
-  background-color: var(--button-color-primary);
-  border-color: var(--button-color-primary);
-}
-.btn-info:hover {
-  color: #fff !important;
-  background-color: #08c694;
-  border-color: #07ba8a;
-}
-.btn-info:focus {
-  color: #000;
-  background-color: var(--button-color-primary);
-  border-color: var(--button-color-primary);
-  box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
-}
-.btn-round {
-  border-radius: 30px !important;
-}
-.btn {
-  padding: 0.35rem 1.2rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  border-radius: 0.25rem;
-  position: relative;
-}
+@import url(assets/css/common.css);
+@import url(assets/css/iconfont.css);
 .left-container {
   margin-left: inherit;
 }
@@ -86,24 +48,7 @@
   z-index:9999 !important;
 }
 
-@font-face {
-  font-family: 'iconfont';  /* Project id 3939890 */
-  src: url('./assets/font/iconfont.woff2') format('woff2'),
-       url('./assets/font/iconfont.woff') format('woff'),
-       url('./assets/font/iconfont.ttf') format('truetype');
-}
 
-.iconfont{
-  font-family:"iconfont" !important;
-  font-style:normal;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  -moz-osx-font-smoothing: grayscale;
-  cursor: pointer;
-}
-.iconfont-size{ 
-  font-size: 13px;
-}
 
 .tool-cancel:hover{
   cursor: pointer;

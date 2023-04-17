@@ -2,9 +2,8 @@ import { useState,useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 import { loginServer } from "@/services/login";
+import {validation} from "@/utils/common";
 import "./Login.css";
-
-import eventBus from "@/utils/eventBus";
 
 const Login = (props: any) => {
   const [validated, setValidated] = useState(false);
@@ -29,14 +28,12 @@ const Login = (props: any) => {
       password: form.formPassword.value,
     })
       .then((res) => {
-        window.localStorage.setItem("loginData", JSON.stringify(res));
-        eventBus.emit('login',res?.username)
+        validation(res);
         setValidated(true);
         setError('');
         props.onHide();
       })
       .catch((err: any) => {
-        console.log(err.error);
         setError(err.error);
       });
   };

@@ -27,8 +27,6 @@ class HttpMethods {
           resolve(response?.data ?? response);
         })
         .catch((error: AxiosError) => {
-          console.log(error);
-          
           if(error?.response?.status===403){
             setTimeout(()=>{
               window.localStorage.clear();
@@ -39,6 +37,11 @@ class HttpMethods {
           reject(error?.response?.data ?? error?.response??'数据获取失败');
         });
     });
+  }
+
+  // 验证token是否过期
+  validation(){
+
   }
 
   // get方法处理

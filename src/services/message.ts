@@ -6,8 +6,6 @@ const baseUrl='/message'
 // 留言列表
 export const getList=async(params:List)=>{
     const result=await HttpMethods.get(baseUrl,params)
-    console.log(result);
-    
     return result;
    
 }

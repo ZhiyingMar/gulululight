@@ -18,7 +18,7 @@ interface IContainerScrollState {
   scrollToTop: () => void;
   /** scroll to left */
   scrollToLeft: () => void;
-    /** 滚动到指定锚点位置*/
+  /** 滚动到指定锚点位置*/
   scrollToAnchor: (anchorId:string) => void;
 }
 
@@ -73,10 +73,7 @@ export default function useContainerScroll(
     let timer:any;
 
     const step = () => {
-        console.log(theContainer[scrollKey]);
-      theContainer[scrollKey] -= 130;
-        console.log(theContainer[scrollKey]);
-        
+      theContainer[scrollKey] -= 130;        
       if (theContainer[scrollKey] > 0) {
         timer = window.requestAnimationFrame(step);
       } else {
@@ -114,7 +111,7 @@ export default function useContainerScroll(
     reachBottom,
     scrollToTop: () => {
     //   resetScroll('top');
-    window.scrollTo(0,130)
+    // window.scrollTo(0,130)
     },
     scrollToLeft: () => {
       resetScroll('left');
